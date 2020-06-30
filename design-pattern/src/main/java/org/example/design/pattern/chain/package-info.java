@@ -8,7 +8,8 @@
  * 并沿着这条链传递该请求，传递过程中可以决定是否传递给下一节点，可以一直传递到最后一个节点，也可以在其中某个节点中断。
  * </p>
  * <p>
- * JavaEE 中 Filter 就是使用的责任链模式,很多框架也都使用了责任链框架，如 Mybatis 中的 plugin,JFinal 中的 handler 和 interceptor 等
+ * JavaEE 中 Filter 就是使用的责任链模式,很多框架也都使用了责任链框架，如 Mybatis 中的 plugin,JFinal 中的 handler 和 interceptor ,
+ * Netty中的 channelHandler 等
  * </p>
  */
 package org.example.design.pattern.chain;
