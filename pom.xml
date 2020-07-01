@@ -13,6 +13,7 @@
         <module>mybatis-demo</module>
         <module>design-pattern</module>
         <module>springboot-demo</module>
+        <module>rocketmq-demo</module>
     </modules>
 
     <properties>
