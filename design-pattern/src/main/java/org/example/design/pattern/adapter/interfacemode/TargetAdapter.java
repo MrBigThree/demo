@@ -1,7 +1,7 @@
 package org.example.design.pattern.adapter.interfacemode;
 
 /**
- * @description: 抽象类实现该接口，但是不做任何操作
+ * @description: 抽象类实现该接口，但是不做任何操作,或者做一些默认的操作
  * @author:lvxuhong
  * @date:2020/7/3
  */
