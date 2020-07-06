@@ -1,5 +1,6 @@
 package com.example.springbootdemo.test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,9 +12,12 @@ import java.lang.reflect.Method;
  */
 public class ClientTest {
 
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Son son = new Son();
         Field[] fields = son.getClass().getDeclaredFields();
+        Constructor<? extends Son> constructor = son.getClass().getConstructor();
+        boolean accessible2 = constructor.isAccessible();
+        Son son1 = constructor.newInstance();
         Method doSomething = son.getClass().getSuperclass().getDeclaredMethod("doSomething");
         doSomething.setAccessible(true);
         boolean accessible = doSomething.isAccessible();
