@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * @description:
  * @author:lvxuhong
@@ -20,7 +23,9 @@ public class AopTest {
 
 
     @Test
-    public void test() {
+    public void test() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method method = service2.getClass().getMethod("selfDoSomething1");
+        method.invoke(service2);
         service2.doSomething();
     }
 }

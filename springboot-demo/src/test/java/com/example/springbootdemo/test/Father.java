@@ -1,5 +1,7 @@
 package com.example.springbootdemo.test;
 
+import java.lang.reflect.Method;
+
 /**
  * @description:
  * @author:lvxuhong
@@ -7,7 +9,13 @@ package com.example.springbootdemo.test;
  */
 public class Father {
 
-    private void doSomething() {
+    public String b = "1";
 
+
+    private void doSomething() {
+        System.out.println("doSomething");
     }
+
+
+
 }

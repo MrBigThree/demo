@@ -7,7 +7,10 @@ package com.example.springbootdemo.test;
  */
 public class Son extends Father {
 
+    private String a = ";";
+
     public void test() {
-        
+
     }
+
 }
