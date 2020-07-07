@@ -10,23 +10,30 @@ import net.sf.cglib.proxy.MethodInterceptor;
  */
 public class SampleClass {
 
-    public void doSomething() {
+    public String doSomething() {
         System.out.println("hello world");
+        return "hello world";
     }
+
 
     public static void main(String[] args) {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(SampleClass.class);
         enhancer.setCallback(
                 (MethodInterceptor) (obj, method, args1, proxy) -> {
-
                     Object o = proxy.invokeSuper(obj, args1);
+                    if(o instanceof String){
 
+                    }
+
+                    if ("hello world".equals(o)) {
+                        return "hello world proxy";
+                    }
                     return o;
                 }
-
         );
         SampleClass sample = (SampleClass) enhancer.create();
-        sample.doSomething();
+        String s = sample.doSomething();
+        System.out.println(s);
     }
 }
