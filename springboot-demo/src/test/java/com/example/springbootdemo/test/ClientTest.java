@@ -16,7 +16,7 @@ public class ClientTest {
         Son son = new Son();
         Field[] fields = son.getClass().getDeclaredFields();
         Constructor<? extends Son> constructor = son.getClass().getConstructor();
-        boolean accessible2 = constructor.isAccessible();
+        constructor.isAccessible()
         Son son1 = constructor.newInstance();
         Method doSomething = son.getClass().getSuperclass().getDeclaredMethod("doSomething");
         doSomething.setAccessible(true);

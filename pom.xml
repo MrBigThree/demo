@@ -14,6 +14,7 @@
         <module>design-pattern</module>
         <module>springboot-demo</module>
         <module>rocketmq-demo</module>
+        <module>aop-demo</module>
     </modules>
 
     <properties>
