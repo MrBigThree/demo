@@ -1,5 +1,6 @@
 package com.example.aop.cglib;
 
+import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 
@@ -17,12 +18,13 @@ public class SampleClass {
 
 
     public static void main(String[] args) {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/lvxuhong/IdeaProjects/git项目/demo/aop-demo/src/main/java");
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(SampleClass.class);
         enhancer.setCallback(
                 (MethodInterceptor) (obj, method, args1, proxy) -> {
                     Object o = proxy.invokeSuper(obj, args1);
-                    if(o instanceof String){
+                    if (o instanceof String) {
 
                     }
 
