@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author:lvxuhong
  * @date:2020/7/8
  */
-@SpringBootTest
+@SpringBootTest(properties = "demo-starter.enabled=true")
 public class AutoConfigTest {
 
     @Autowired
