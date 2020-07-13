@@ -1,0 +1,15 @@
+POST /web/o/enterStraightUsers HTTP/1.1
+Host: 20.21.1.133:30083
+Connection: keep-alive
+Content-Length: 708
+Pragma: no-cache
+Cache-Control: no-cache
+X-Requested-With: XMLHttpRequest
+access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODk4MDY2NjcsInVzZXJfbmFtZSI6InN5c3poZmtjaiIsImF1dGhvcml0aWVzIjpbIjEiXSwianRpIjoiNGYzODZhYTUtZGRhNC00NjZlLWIyNWItOTc1ZGIwMGY0MzA0IiwiY2xpZW50X2lkIjoic3Ytd2ViIiwic2NvcGUiOlsic2VsZWN0Il19.YYzQ2OpLbYIwp0yUm3Xpd5Cr6dfh4TLjGvLh9Xf4mEs
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryhjKk8bAdzALwpyRo
+Accept: */*
+Origin: http://20.21.1.133:8090
+Referer: http://20.21.1.133:8090/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9

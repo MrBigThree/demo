@@ -16,6 +16,7 @@
         <module>rocketmq-demo</module>
         <module>aop-demo</module>
         <module>springboot-starter-demo</module>
+        <module>netty-demo</module>
     </modules>
 
     <properties>
