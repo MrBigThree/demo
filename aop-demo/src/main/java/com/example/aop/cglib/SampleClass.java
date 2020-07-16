@@ -20,7 +20,6 @@ public class SampleClass {
 
 
     public static void main(String[] args) {
-        CompletableFuture
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/lvxuhong/IdeaProjects/git项目/demo/aop-demo/src/main/java");
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(SampleClass.class);
