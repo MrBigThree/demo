@@ -10,17 +10,18 @@ public class SyncTest {
 
     public synchronized void test1() throws InterruptedException {
         Thread.sleep(3000);
+
         System.out.println("test1");
     }
 
     public synchronized void test2() {
+
         System.out.println("test2");
     }
 
     public void test3() {
         System.out.println("1231231");
     }
-
 
 
     public static void main(String[] args) {
@@ -37,4 +38,8 @@ public class SyncTest {
 
         new Thread(() -> test.test3()).start();
     }
+
+
+
+
 }

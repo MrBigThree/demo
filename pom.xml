@@ -17,6 +17,8 @@
         <module>aop-demo</module>
         <module>springboot-starter-demo</module>
         <module>netty-demo</module>
+        <module>webservice-demo</module>
+        <module>mqtt-demo</module>
     </modules>
 
     <properties>
