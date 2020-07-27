@@ -15,6 +15,8 @@ public class AutoConfiguration {
 
     @Bean
     public UserService userService() {
+
+
         return new UserService();
     }
 }
