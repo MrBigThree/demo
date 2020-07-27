@@ -17,7 +17,6 @@
         <module>aop-demo</module>
         <module>springboot-starter-demo</module>
         <module>netty-demo</module>
-        <module>webservice-demo</module>
         <module>mqtt-demo</module>
     </modules>
 
@@ -29,6 +28,16 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
 
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
+
+    </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
