@@ -8,18 +8,17 @@
 public class ReferenceCountingGC{
 
     public Object instance=null􏳀;
-    private static final int_1MB = 1024*1024􏳀;
-    /** *􏰶􏱭􏰜􏶠􏴾􏳨􏰝􏶍􏰒􏴌􏵅􏱘􏱋􏷊􏴩􏰉􏰊􏰠􏲤􏷋􏳴􏱒GC􏴇􏴈􏲯􏱹􏴅􏴆􏱋􏴙􏴺􏱣􏰅􏱫 */
+    private static final int MB_1 = 1024 * 1024;
+     /** *􏰶􏱭􏰜􏶠􏴾􏳨􏰝􏶍􏰒􏴌􏵅􏱘􏱋􏷊􏴩􏰉􏰊􏰠􏲤􏷋􏳴􏱒GC􏴇􏴈􏲯􏱹􏴅􏴆􏱋􏴙􏴺􏱣􏰅􏱫 */
     private byte[]bigSize=new byte[2*_1MB]􏳀
 
-    public static void testGC􏰰􏰱{
-        ReferenceCountingGC objA=new ReferenceCountingGC􏰰􏰱􏳀 ;
-        ReferenceCountingGC objB=new ReferenceCountingGC􏰰􏰱􏳀;
-        objA.instance=objB􏳀;
-        objB.instance=objA􏳀;
-        objA=null􏳀;
-        objB=null􏳀;
-        System.gc􏰰􏰱􏳀;
+    public void testGC(){
+        ObjectA objectA = new ObjectA();
+        ObjectB objectB = new ObjectB();
+        objectA.B = objectB;
+        objectB.A = objectA;
+        objectA = null;
+        objectB = null;
     }
 }
 ```
