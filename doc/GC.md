@@ -7,11 +7,6 @@
 
 public class ReferenceCountingGC{
 
-    public Object instance=null􏳀;
-    private static final int MB_1 = 1024 * 1024;
-     /** *􏰶􏱭􏰜􏶠􏴾􏳨􏰝􏶍􏰒􏴌􏵅􏱘􏱋􏷊􏴩􏰉􏰊􏰠􏲤􏷋􏳴􏱒GC􏴇􏴈􏲯􏱹􏴅􏴆􏱋􏴙􏴺􏱣􏰅􏱫 */
-    private byte[]bigSize=new byte[2*_1MB]􏳀
-
     public void testGC(){
         ObjectA objectA = new ObjectA();
         ObjectB objectB = new ObjectB();
