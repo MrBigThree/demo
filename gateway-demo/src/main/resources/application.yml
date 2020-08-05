@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: time_route
+          uri: http://localhost:30087
+          predicates:
+            - Path=/api/**
+debug: true
