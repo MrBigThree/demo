@@ -21,6 +21,8 @@
         <module>webflux-demo</module>
         <module>gateway-demo</module>
         <module>jfinal-demo</module>
+        <module>redission-demo</module>
+        <module>leetcode-demo</module>
     </modules>
 
     <properties>
@@ -33,12 +35,6 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
-        </dependency>
 
     </dependencies>
     <dependencyManagement>
