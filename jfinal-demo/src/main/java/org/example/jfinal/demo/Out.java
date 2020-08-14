@@ -19,7 +19,6 @@ import static com.jfinal.plugin.activerecord.Db.find;
 public class Out {
 
     public static void main(String[] args) {
-        //DruidPlugin dp = new DruidPlugin("jdbc:mysql://localhost/demo", "root", "123456789");
         String dbName = "mybf";
         String outFile = "/Users/lvxuhong/Desktop/泵阀.xlsx";
         DruidPlugin dp = new DruidPlugin("jdbc:mysql://20.21.1.102/information_schema?serverTimezone=Hongkong", "root", "zjrc2019");
