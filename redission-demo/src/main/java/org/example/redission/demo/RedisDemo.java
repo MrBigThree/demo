@@ -13,18 +13,44 @@ import org.redisson.config.Config;
 public class RedisDemo {
 
     public static void main(String[] args) throws Exception {
-        Config config = new Config();
-        config.useSingleServer()
-                .setAddress("redis://20.21.1.118:6379");
-        RedissonClient redisson = Redisson.create(config);
-        RLock lock = redisson.getLock("anyLock");
+        new Thread(() -> {
+            Config config = new Config();
+            config.useSingleServer()
+                    .setAddress("redis://20.21.1.118:6379");
+            RedissonClient redisson = Redisson.create(config);
+            RLock lock = redisson.getLock("anyLock");
+            System.out.println(Thread.currentThread().getId());
+            lock.lock();
+            try {
+                Thread.sleep(200000);
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                System.out.println("123");
+                lock.unlock();
+            }
+        }).start();
+        new Thread(new L()).start();
+    }
 
-        lock.lock();
-        try {
-            Thread.sleep(2000);
-        } finally {
-            System.out.println("123");
-            lock.unlock();
+    static class L implements Runnable {
+        @Override
+        public void run() {
+            Config config = new Config();
+            config.useSingleServer()
+                    .setAddress("redis://20.21.1.118:6379");
+            RedissonClient redisson = Redisson.create(config);
+            RLock lock = redisson.getLock("anyLock");
+            System.out.println(Thread.currentThread().getId());
+            lock.lock();
+            try {
+                Thread.sleep(20000);
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                System.out.println("123");
+                lock.unlock();
+            }
         }
     }
 }

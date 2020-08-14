@@ -1,8 +1,11 @@
 package org.example.jfinal.demo;
 
 import com.jfinal.config.*;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.server.undertow.UndertowServer;
 import com.jfinal.template.Engine;
+import org.example.jfinal.demo.model._MappingKit;
 
 /**
  * @description:
@@ -28,6 +31,11 @@ public class DemoJFinalConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins plugins) {
+        DruidPlugin dp = new DruidPlugin("jdbc:mysql://localhost/demo", "root", "123456789");
+        plugins.add(dp);
+        ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+        plugins.add(arp);
+        _MappingKit.mapping(arp);
 
     }
 

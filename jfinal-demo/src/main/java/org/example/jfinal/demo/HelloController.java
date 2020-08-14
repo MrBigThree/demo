@@ -1,6 +1,9 @@
 package org.example.jfinal.demo;
 
 import com.jfinal.core.Controller;
+import org.example.jfinal.demo.model.User;
+
+import java.util.Map;
 
 /**
  * @description:
@@ -9,9 +12,13 @@ import com.jfinal.core.Controller;
  */
 public class HelloController extends Controller {
 
-    public void index() {
+    public void index(User user) {
+        Map<String, String[]> paraMap = this.getParaMap();
+        System.out.println(paraMap);
+        user.removeNullValueAttrs().update();
         renderText("hello world");
         renderNull();
     }
+
 
 }
