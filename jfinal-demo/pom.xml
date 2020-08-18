@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.jfinal</groupId>
             <artifactId>jfinal</artifactId>
-            <version>4.9.01</version>
+            <version>4.9.1</version>
         </dependency>
         <dependency>
             <groupId>com.jfinal</groupId>
@@ -51,6 +51,19 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.6.1</version>
         </dependency>
     </dependencies>
 

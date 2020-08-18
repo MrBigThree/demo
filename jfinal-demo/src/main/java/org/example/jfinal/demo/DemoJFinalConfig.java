@@ -1,11 +1,16 @@
 package org.example.jfinal.demo;
 
 import com.jfinal.config.*;
+import com.jfinal.core.paragetter.ParaProcessorBuilder;
+import com.jfinal.json.MixedJsonFactory;
+import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.server.undertow.UndertowServer;
 import com.jfinal.template.Engine;
 import org.example.jfinal.demo.model._MappingKit;
+
+import java.util.HashMap;
 
 /**
  * @description:
@@ -14,9 +19,14 @@ import org.example.jfinal.demo.model._MappingKit;
  */
 public class DemoJFinalConfig extends JFinalConfig {
 
+    private static ParaProcessorBuilder builder;
+
     @Override
     public void configConstant(Constants constants) {
-
+        constants.setJsonFactory(MixedJsonFactory.me());
+        ClassLoader classLoader1 = ParaProcessorBuilder.me.getClass().getClassLoader();
+        ParaProcessorBuilder.me.regist(HashMap.class, HashMapGetter.class, null);
+        System.out.println(classLoader1.getClass().getName());
     }
 
     @Override
@@ -49,8 +59,14 @@ public class DemoJFinalConfig extends JFinalConfig {
 
     }
 
+    @Override
+    public void onStart() {
+
+    }
+
     public static void main(String[] args) {
         UndertowServer.start(DemoJFinalConfig.class, 8080, true);
-
+        ClassLoader classLoader1 = ParaProcessorBuilder.me.getClass().getClassLoader();
+        System.out.println(classLoader1.getClass().getName());
     }
 }

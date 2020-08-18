@@ -1,9 +1,11 @@
 package org.example.jfinal.demo;
 
 import com.jfinal.core.Controller;
-import org.example.jfinal.demo.model.User;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
-import java.util.Map;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 /**
  * @description:
@@ -12,13 +14,18 @@ import java.util.Map;
  */
 public class HelloController extends Controller {
 
-    public void index(User user) {
-        Map<String, String[]> paraMap = this.getParaMap();
-        System.out.println(paraMap);
-        user.removeNullValueAttrs().update();
-        renderText("hello world");
+    public void index(HashMap<String, String> user) {
+        System.out.println(user);
         renderNull();
     }
 
-
+    public static void main(String[] args) {
+        HashMap<String, Integer> map1 = new HashMap<>();
+        ParameterizedTypeImpl genericSuperclass = (ParameterizedTypeImpl) map1.getClass().getGenericSuperclass();
+        Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
+        for (int i = 0; i < actualTypeArguments.length; i++) {
+            TypeVariableImpl actualType = (TypeVariableImpl) actualTypeArguments[i];
+            System.out.println(actualType.getName());
+        }
+    }
 }

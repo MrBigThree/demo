@@ -17,6 +17,8 @@ public class TestController {
 
     @RequestMapping("/hello")
     public String hello() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        System.out.println(classLoader);
         return "hello";
     }
 
