@@ -1,9 +1,11 @@
 package org.example.jfinal.demo;
 
 import com.jfinal.core.Controller;
+import com.jfinal.upload.UploadFile;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
@@ -15,7 +17,9 @@ import java.util.HashMap;
 public class HelloController extends Controller {
 
     public void index(HashMap<String, String> user) {
-        System.out.println(user);
+
+        ServiceB.me.doSomething();
+        com.mysql.cj.jdbc.Driver s;
         renderNull();
     }
 

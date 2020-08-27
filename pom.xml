@@ -23,6 +23,7 @@
         <module>jfinal-demo</module>
         <module>redission-demo</module>
         <module>leetcode-demo</module>
+        <module>mongodb-demo</module>
     </modules>
 
     <properties>

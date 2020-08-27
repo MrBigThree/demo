@@ -3,7 +3,6 @@ package org.example.jfinal.demo;
 import com.jfinal.config.*;
 import com.jfinal.core.paragetter.ParaProcessorBuilder;
 import com.jfinal.json.MixedJsonFactory;
-import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.server.undertow.UndertowServer;
@@ -19,14 +18,16 @@ import java.util.HashMap;
  */
 public class DemoJFinalConfig extends JFinalConfig {
 
-    private static ParaProcessorBuilder builder;
-
     @Override
     public void configConstant(Constants constants) {
         constants.setJsonFactory(MixedJsonFactory.me());
         ClassLoader classLoader1 = ParaProcessorBuilder.me.getClass().getClassLoader();
         ParaProcessorBuilder.me.regist(HashMap.class, HashMapGetter.class, null);
         System.out.println(classLoader1.getClass().getName());
+
+
+        constants.setToCglibProxyFactory();  // 4.6 版本新增配置方式
+
     }
 
     @Override
@@ -41,6 +42,7 @@ public class DemoJFinalConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins plugins) {
+
         DruidPlugin dp = new DruidPlugin("jdbc:mysql://localhost/demo", "root", "123456789");
         plugins.add(dp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
@@ -66,7 +68,5 @@ public class DemoJFinalConfig extends JFinalConfig {
 
     public static void main(String[] args) {
         UndertowServer.start(DemoJFinalConfig.class, 8080, true);
-        ClassLoader classLoader1 = ParaProcessorBuilder.me.getClass().getClassLoader();
-        System.out.println(classLoader1.getClass().getName());
     }
 }
