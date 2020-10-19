@@ -24,6 +24,8 @@
         <module>redission-demo</module>
         <module>leetcode-demo</module>
         <module>mongodb-demo</module>
+        <module>hystrix-demo</module>
+        <module>flink-demo</module>
     </modules>
 
     <properties>
