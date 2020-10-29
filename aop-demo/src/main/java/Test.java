@@ -1,3 +1,5 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @description:
  * @author:lvxuhong
@@ -5,8 +7,12 @@
  */
 public class Test {
 
-    public void test(String name, String age) {
+    public void test(String name, String age)
+    {
         System.out.println(name);
+
+        AtomicInteger integer = new AtomicInteger(1);
+        integer.addAndGet(1);
     }
 
 }
