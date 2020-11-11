@@ -25,18 +25,14 @@ import java.util.logging.Logger;
  */
 public class NoXmlTest {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         DataSource dataSource = new MyDataSource();
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
         Configuration configuration = new Configuration(environment);
         configuration.addMapper(UserMapper.class);
-
-
         XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(UserMapper.class.getResourceAsStream("/sqlmap/User.xml"), configuration, "sqlmap/User.xml", configuration.getSqlFragments());
         xmlMapperBuilder.parse();
-
-
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
