@@ -48,4 +48,5 @@ public class D_0290 {
     public static void main(String[] args) {
         new D_0290().wordPattern("abba", "dog cat cat dog");
     }
+
 }
