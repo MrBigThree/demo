@@ -26,6 +26,8 @@
         <module>mongodb-demo</module>
         <module>hystrix-demo</module>
         <module>flink-demo</module>
+        <module>zookeeper-demo</module>
+        <module>dubbo-demo</module>
     </modules>
 
     <properties>
