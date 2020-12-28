@@ -16,7 +16,7 @@ import java.util.concurrent.locks.Lock;
  * @author: lvxuhong
  * @date: 2020/12/9
  */
-public class DistributedLock implements Lock {
+public class DistributedLock1 implements Lock {
 
 
     private static final String ZOOKEEPER_IP_PORT = "127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183";
@@ -30,7 +30,7 @@ public class DistributedLock implements Lock {
     private String currentPath;// 当前请求的节点
 
     // 判断有没有LOCK目录，没有则创建
-    public DistributedLock() {
+    public DistributedLock1() {
         if (!this.client.exists(LOCK_PATH)) {
             this.client.createPersistent(LOCK_PATH);
         }
@@ -39,6 +39,7 @@ public class DistributedLock implements Lock {
     @Override
     public void lock() {
         //尝试去获取分布式锁失败
+        System.out.println(11111111);
         if (!tryLock()) {
             //对次小节点进行监听
             waitForLock();
@@ -63,9 +64,18 @@ public class DistributedLock implements Lock {
             }
         };
 
+
+        try {
+            System.out.println("前一个节点 " + beforePath);
+            Thread.sleep(4000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean exists = this.client.exists(beforePath);
+        System.out.println("前一个节点 " + exists);
         // 对次小节点进行监听,即beforePath-给排在前面的的节点增加数据删除的watcher
         this.client.subscribeDataChanges(beforePath, listener);
-        if (this.client.exists(beforePath)) {
+        if (exists) {
             cdl = new CountDownLatch(1);
             try {
                 cdl.await();
@@ -73,6 +83,8 @@ public class DistributedLock implements Lock {
                 e.printStackTrace();
             }
         }
+
+
         this.client.unsubscribeDataChanges(beforePath, listener);
     }
 
