@@ -11,13 +11,15 @@ public class WatchDemo1 {
 
 
     public static void main(String[] args) throws InterruptedException {
+        Object lockObj = new Object();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 DistributedLock lock = new DistributedLock();
                 lock.lock();
                 try {
-                    Thread.sleep(3000);
+                    //Thread.sleep(3000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -37,8 +39,6 @@ public class WatchDemo1 {
                 } finally {
                     lock.unlock();
                 }
-
-
             }
         }).start();
 

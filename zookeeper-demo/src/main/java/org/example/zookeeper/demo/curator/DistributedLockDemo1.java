@@ -3,8 +3,10 @@ package org.example.zookeeper.demo.curator;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.WatchedEvent;
 
 /**
  * @description: //TODO
@@ -25,58 +27,32 @@ public class DistributedLockDemo1 {
     // client2 用户模拟其他客户端
     private CuratorFramework client2;
 
-    private static int sleep = 70000;
 
     public static void main(String[] args) throws Exception {
-        new Thread(new Runnable() {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+
+        CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
+        client.start();
+
+        client.getData().usingWatcher(new CuratorWatcher() {
             @Override
-            public void run() {
-                RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-
-                CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
-                client.start();
-                //创建分布式锁, 锁空间的根节点路径为/curator/lock
-                InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
-                try {
-                    mutex.acquire();
-                    System.out.println(Thread.currentThread().getName() + "   " + System.currentTimeMillis() + "Enter mutex");
-                    Thread.sleep(sleep);
-                    //完成业务流程, 释放锁
-                    mutex.release();
-                    System.out.println(Thread.currentThread().getName() + "   " + System.currentTimeMillis() + "Enter release");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //关闭客户端
-                client.close();
+            public void process(WatchedEvent event) throws Exception {
+                System.out.println(event);
             }
-        }, "thread__1").start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-
-                CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
-                client.start();
-                //创建分布式锁, 锁空间的根节点路径为/curator/lock
-                InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
-                try {
-                    mutex.acquire();
-                    System.out.println(Thread.currentThread().getName() + "   " + System.currentTimeMillis() + "Enter mutex");
-                    //完成业务流程, 释放锁
-                    Thread.sleep(sleep);
-                    mutex.release();
-                    System.out.println(Thread.currentThread().getName() + "   " + System.currentTimeMillis() + "Enter release");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                //关闭客户端
-                client.close();
-            }
-        }, "thread__2").start();
+        }).forPath("/ourPath");
 
 
+//        //创建分布式锁, 锁空间的根节点路径为/curator/lock
+//        InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
+//
+//
+//        mutex.acquire();
+//        System.out.println(System.currentTimeMillis() + "Enter mutex");
+//        Thread.sleep(100000);
+//        System.out.println(System.currentTimeMillis() + "Enter release");
+//        //完成业务流程, 释放锁
+//        mutex.release();
+//        //关闭客户端
+        client.close();
     }
 }

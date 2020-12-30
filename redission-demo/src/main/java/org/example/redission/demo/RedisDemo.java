@@ -22,7 +22,6 @@ public class RedisDemo {
         map.put("age","123");
 
         Thread.currentThread().interrupt();
-
         RReadWriteLock readWriteLock = redisson.getReadWriteLock("test");
         readWriteLock.readLock().lock();
 

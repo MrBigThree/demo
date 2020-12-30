@@ -27,21 +27,45 @@ public class DistributedLockDemo {
 
 
     public static void main(String[] args) throws Exception {
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        {
+            RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
 
-        CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
-        client.start();
-        //创建分布式锁, 锁空间的根节点路径为/curator/lock
-        InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
+            CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
+            client.start();
+            //创建分布式锁, 锁空间的根节点路径为/curator/lock
+            InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
 
-        mutex.acquire();
-        System.out.println(System.currentTimeMillis() + "Enter mutex");
-        Thread.sleep(10000);
-        System.out.println(System.currentTimeMillis() + "Enter release");
-        //完成业务流程, 释放锁
-        mutex.release();
-        //关闭客户端
-        client.close();
+            mutex.acquire();
+            System.out.println(System.currentTimeMillis() + "Enter mutex");
+            Thread.sleep(100000);
+            System.out.println(System.currentTimeMillis() + "Enter release");
+            //完成业务流程, 释放锁
+            mutex.release();
+            //关闭客户端
+            client.close();
+        }
+
+        new Thread(() -> {
+            RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+
+            CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
+            client.start();
+            //创建分布式锁, 锁空间的根节点路径为/curator/lock
+            InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
+
+            try {
+                mutex.acquire();
+                System.out.println(System.currentTimeMillis() + "Enter mutex");
+                Thread.sleep(100000);
+                System.out.println(System.currentTimeMillis() + "Enter release");
+                //完成业务流程, 释放锁
+                mutex.release();
+                //关闭客户端
+                client.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
 }

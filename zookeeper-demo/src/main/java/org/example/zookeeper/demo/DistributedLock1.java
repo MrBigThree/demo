@@ -31,6 +31,7 @@ public class DistributedLock1 implements Lock {
 
     // 判断有没有LOCK目录，没有则创建
     public DistributedLock1() {
+
         if (!this.client.exists(LOCK_PATH)) {
             this.client.createPersistent(LOCK_PATH);
         }
@@ -53,9 +54,9 @@ public class DistributedLock1 implements Lock {
     private void waitForLock() {
         IZkDataListener listener = new IZkDataListener() {
             public void handleDataDeleted(String dataPath) throws Exception {
-                System.out.println(Thread.currentThread().getName() + dataPath + ":捕获到DataDelete事件！---------------------------");
-                if (cdl != null) {
-                    cdl.countDown();
+                synchronized (DistributedLock1.class) {
+                    System.out.println(Thread.currentThread().getName() + dataPath + ":捕获到DataDelete事件！---------------------------");
+                    DistributedLock1.class.notifyAll();
                 }
             }
 
@@ -63,28 +64,20 @@ public class DistributedLock1 implements Lock {
 
             }
         };
-
-
-        try {
-            System.out.println("前一个节点 " + beforePath);
-            Thread.sleep(4000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean exists = this.client.exists(beforePath);
-        System.out.println("前一个节点 " + exists);
-        // 对次小节点进行监听,即beforePath-给排在前面的的节点增加数据删除的watcher
-        this.client.subscribeDataChanges(beforePath, listener);
-        if (exists) {
-            cdl = new CountDownLatch(1);
-            try {
-                cdl.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        synchronized (DistributedLock1.class) {
+            boolean exists = this.client.exists(beforePath);
+            System.out.println("前一个节点 " + exists);
+            // 对次小节点进行监听,即beforePath-给排在前面的的节点增加数据删除的watcher
+            this.client.subscribeDataChanges(beforePath, listener);
+            if (exists) {
+                cdl = new CountDownLatch(1);
+                try {
+                    DistributedLock1.class.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
-
         this.client.unsubscribeDataChanges(beforePath, listener);
     }
 

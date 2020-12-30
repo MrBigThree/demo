@@ -28,7 +28,6 @@ public class DistributedLock implements Lock {
 
     private String beforePath;// 当前请求的节点前一个节点
     private String currentPath;// 当前请求的节点
-
     // 判断有没有LOCK目录，没有则创建
     public DistributedLock() {
         if (!this.client.exists(LOCK_PATH)) {
@@ -52,9 +51,9 @@ public class DistributedLock implements Lock {
     private void waitForLock() {
         IZkDataListener listener = new IZkDataListener() {
             public void handleDataDeleted(String dataPath) throws Exception {
-                System.out.println(Thread.currentThread().getName() + dataPath + ":捕获到DataDelete事件！---------------------------");
-                if (cdl != null) {
-                    cdl.countDown();
+                synchronized (DistributedLock.class){
+                    System.out.println(Thread.currentThread().getName() + dataPath + ":捕获到DataDelete事件！---------------------------");
+                    DistributedLock.class.notifyAll();
                 }
             }
 
@@ -64,13 +63,22 @@ public class DistributedLock implements Lock {
         };
 
         // 对次小节点进行监听,即beforePath-给排在前面的的节点增加数据删除的watcher
-        this.client.subscribeDataChanges(beforePath, listener);
-        if (this.client.exists(beforePath)) {
-            cdl = new CountDownLatch(1);
-            try {
-                cdl.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        synchronized (DistributedLock.class){
+            this.client.subscribeDataChanges(beforePath, listener);
+            if (this.client.exists(beforePath)) {
+                //如果此时beforePath 的锁被释放，这个锁将会永远无法获取，卡死
+                try {
+                    Thread.sleep(10000);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                System.out.println(System.currentTimeMillis() + "存在");
+                cdl = new CountDownLatch(1);
+                try {
+                    DistributedLock.class.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         this.client.unsubscribeDataChanges(beforePath, listener);
