@@ -23,18 +23,21 @@ public class Service2Impl implements Service2, InitializingBean {
 
     @Override
     public void doSomething() {
-        System.out.println(service2.getClass().getName());
+      //  System.out.println(service2.getClass().getName());
         service2.selfDoSomething();
         service2.selfDoSomething1();
     }
-
-    private void selfDoSomething() {
+    @Override
+    public void selfDoSomething() {
         //System.out.println(service2.getClass().getName());
         System.out.println("selfDoSomething");
     }
-
+    @Override
     public void selfDoSomething1() {
         System.out.println(service2.getClass().getName());
         System.out.println("selfDoSomething1");
     }
+
+
+
 }

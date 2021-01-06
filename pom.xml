@@ -28,6 +28,7 @@
         <module>flink-demo</module>
         <module>zookeeper-demo</module>
         <module>dubbo-demo</module>
+        <module>sharding-jdbc-demo</module>
     </modules>
 
     <properties>

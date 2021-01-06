@@ -8,4 +8,10 @@ package com.example.springbootdemo.service;
 public interface Service2 {
 
     void doSomething();
+
+    void selfDoSomething();
+
+    void selfDoSomething1();
+
+
 }
