@@ -27,14 +27,13 @@ public class UserController {
 
     @GetMapping("test")
     public String test() throws SQLException {
-
         Connection connection = dataSource.getConnection();
         try {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement1 = connection.prepareStatement("delete from user");
             preparedStatement1.executeUpdate();
             PreparedStatement preparedStatement = connection.prepareStatement("insert into user values (?,?,?)");
-            for (int i = 0; i < 10000000; i++) {
+            for (int i = 0; i < 2500000; i++) {
                 preparedStatement.setLong(1, i);
                 preparedStatement.setString(2, "city" + i);
                 preparedStatement.setString(3, "name" + i);
@@ -45,7 +44,7 @@ public class UserController {
                     preparedStatement.clearBatch();
                 }
             }
-
+            connection.commit();
         } finally {
             connection.close();
         }
@@ -55,12 +54,11 @@ public class UserController {
 
     @GetMapping("test1")
     public String test1() throws SQLException {
-
         Connection connection = dataSource.getConnection();
         try {
             long l = System.currentTimeMillis();
             connection.setAutoCommit(false);
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from user where name = 'name10000' order by city ");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from user where name = 'name9999897'");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Map<String, Object>> list = new ArrayList<>();
             ResultSetMetaData metaData = resultSet.getMetaData();
