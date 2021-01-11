@@ -29,6 +29,7 @@
         <module>zookeeper-demo</module>
         <module>dubbo-demo</module>
         <module>sharding-jdbc-demo</module>
+        <module>nacos-demo</module>
     </modules>
 
     <properties>

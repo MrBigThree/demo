@@ -14,12 +14,21 @@ spring:
         url:  jdbc:mysql://localhost:3306/ds_0?serverTimezone=Hongkong
         username: root
         password: 123456789
+        initial-size: 20
+        min-idle: 20
+        maxActive: 100
+        filters: log4j2
     sharding:
       tables:
-        user:
-          actual-data-nodes: master.user_${0..3}
+        person_attence:
+          actual-data-nodes: master.person_attence_${202001..202012}
           table-strategy:
             standard:
-              sharding-column: id
-              precise-algorithm-class-name: org.example.sharding.demo.config.MyPreciseShardingAlgorithm
+              sharding-column: attence_time
+              precise-algorithm-class-name: org.example.sharding.demo.config.DatePreciseShardingAlgorithm
+              range-algorithm-class-name: org.example.sharding.demo.config.DatePreciseShardingAlgorithm
+
+    props:
+      sql.show: true
+      max.connections.size.per.query: 12
 

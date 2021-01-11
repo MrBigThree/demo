@@ -1,5 +1,8 @@
 package org.example.sharding.demo.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,5 +80,119 @@ public class UserController {
             connection.close();
         }
         return null;
+    }
+
+    @GetMapping("testAttence")
+    public String testAttence() throws SQLException {
+        Connection connection = dataSource.getConnection();
+        try {
+            connection.setAutoCommit(true);
+            PreparedStatement delete_from_person_attence = connection.prepareStatement("delete from person_attence");
+            delete_from_person_attence.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into person_attence (id, person_id, device_code, attence_time, create_by, create_date, update_by,\n" +
+                    "                                   update_date, remarks, del_flag, department_id, department_name, person_name,\n" +
+                    "                                   person_phone, company_id, company_name)\n" +
+                    "VALUES (?,?,?,?,?,now(),?,now(),'xx','0','1234','部门','王大锤','1390909090','uuid','某某公司')");
+            Long id = 0L;
+            for (int i = 1; i <= 12; i++) {
+                String mouth = "";
+                if (i >= 10) {
+                    mouth = "2020" + i;
+                } else {
+                    mouth = "20200" + i;
+                }
+                for (int j = 1; j <= 25; j++) {
+                    String day = mouth;
+                    if (j >= 10) {
+                        day = day + j;
+                    } else {
+                        day = day + "0" + j;
+                    }
+                    String time = day + " 08:00:00";
+                    DateTime parse = DateUtil.parse(time, "yyyyMMdd HH:mm:ss");
+                    Timestamp timestamp = new Timestamp(parse.getTime());
+                    for (int k = 0; k < 200; k++) {
+                        DateTime dateTime = DateUtil.offsetSecond(timestamp, 1);
+                        timestamp = new Timestamp(dateTime.getTime());
+                        for (int l = 0; l < 1000; l++) {
+                            preparedStatement.setLong(1, id);
+                            preparedStatement.setString(2, IdUtil.simpleUUID());
+                            preparedStatement.setString(3, IdUtil.simpleUUID());
+                            preparedStatement.setTimestamp(4, timestamp);
+                            preparedStatement.setString(5, IdUtil.simpleUUID());
+                            preparedStatement.setString(6, IdUtil.simpleUUID());
+                            preparedStatement.addBatch();
+                            id++;
+                            System.out.println(id);
+                        }
+                        preparedStatement.executeBatch();
+                        preparedStatement.clearBatch();
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+        }
+        return "";
+    }
+
+
+    @GetMapping("testAttence7")
+    public String testAttence8() throws SQLException {
+        Connection connection = dataSource.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into person_attence (id, person_id, device_code, attence_time, create_by, create_date, update_by,\n" +
+                    "                                   update_date, remarks, del_flag, department_id, department_name, person_name,\n" +
+                    "                                   person_phone, company_id, company_name)\n" +
+                    "VALUES (?,?,?,?,?,now(),?,now(),'xx','0','1234','部门','王大锤','1390909090','uuid','某某公司')");
+            Long id = 50000000L;
+            for (int i = 11; i <= 12; i++) {
+                String mouth = "";
+                if (i >= 10) {
+                    mouth = "2020" + i;
+                } else {
+                    mouth = "20200" + i;
+                }
+                for (int j = 1; j <= 25; j++) {
+                    String day = mouth;
+                    if (j >= 10) {
+                        day = day + j;
+                    } else {
+                        day = day + "0" + j;
+                    }
+                    String time = day + " 08:00:00";
+                    DateTime parse = DateUtil.parse(time, "yyyyMMdd HH:mm:ss");
+                    Timestamp timestamp = new Timestamp(parse.getTime());
+                    for (int k = 0; k < 20; k++) {
+                        DateTime dateTime = DateUtil.offsetSecond(timestamp, 1);
+                        timestamp = new Timestamp(dateTime.getTime());
+                        for (int l = 0; l < 10000; l++) {
+                            preparedStatement.setLong(1, id);
+                            preparedStatement.setString(2, IdUtil.simpleUUID());
+                            preparedStatement.setString(3, IdUtil.simpleUUID());
+                            preparedStatement.setTimestamp(4, timestamp);
+                            preparedStatement.setString(5, IdUtil.simpleUUID());
+                            preparedStatement.setString(6, IdUtil.simpleUUID());
+                            preparedStatement.addBatch();
+                            id++;
+                            System.out.println(id);
+                        }
+                        preparedStatement.executeBatch();
+                        connection.commit();
+                        preparedStatement.clearBatch();
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+        }
+        return "";
     }
 }
