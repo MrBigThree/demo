@@ -3,6 +3,8 @@ package com.example.springbootdemo.service.impl;
 import com.example.springbootdemo.service.Service2;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @date:2020/6/19
  */
 @Service
+//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Service2Impl implements Service2, InitializingBean {
 
     @Autowired

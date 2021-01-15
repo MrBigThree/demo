@@ -1,0 +1,19 @@
+# dev
+server-addr: 20.21.1.135:8848
+namespace: 16772d1e-f4fe-4414-b2e1-53730e74573e
+
+nacos:
+  config:
+    bootstrap:
+      enable: true
+      log-enable: true
+    server-addr: ${server-addr}
+    namespace: ${namespace}
+    data-ids: application1.yml
+    type: YAML
+    auto-refresh: true
+    max-retry: 10
+    config-retry-time: 2333
+    config-long-poll-timeout: 46000
+    enableRemoteSyncConfig: true
+
