@@ -81,70 +81,9 @@ public class NacosConfigExample {
 //        }
 
 
-        BlockingQueue workQueue = new LinkedBlockingQueue<>(1);
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 10, TimeUnit.MINUTES, workQueue, ((r, executor) -> {
-            Class<? extends Runnable> aClass = r.getClass();
-            FutureTask futureTask = (FutureTask) r;
-            System.out.println(futureTask.getClass());
-        }));
-        Runnable task1 = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    System.out.println("task1");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        Runnable task2 = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    System.out.println("task2");
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        Runnable task3 = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    System.out.println("task3");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        Runnable task4 = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                    System.out.println("task4");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-
-        threadPoolExecutor.submit(task1);
-        threadPoolExecutor.submit(task2);
-        threadPoolExecutor.submit(task3);
-        threadPoolExecutor.submit(task4);
-
-
-        threadPoolExecutor.shutdown();
-        System.out.println("shutdown");
-
-        ReentrantLock lock = new ReentrantLock();
-
-        Semaphore semaphore = new Semaphore(1);
+        ReentrantLock lock = new ReentrantLock(true);
+        lock.lock();
+        System.out.println("lock");
+        lock.unlock();
     }
 }

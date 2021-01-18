@@ -4,6 +4,9 @@ import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Collections;
+import java.util.concurrent.Executors;
+
 /**
  * @description: //TODO
  * @author: lvxuhong
@@ -14,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NacosDemoApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(NacosDemoApplication.class, args);
     }
 }
