@@ -30,6 +30,7 @@
         <module>dubbo-demo</module>
         <module>sharding-jdbc-demo</module>
         <module>nacos-demo</module>
+        <module>sentinel-demo</module>
     </modules>
 
     <properties>

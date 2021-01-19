@@ -8,10 +8,12 @@ package org.example.hystrix.demo;
 public class Demo {
 
     public static void main(String[] args) {
-        HelloWorldHystrixCommand command = new HelloWorldHystrixCommand("xxx");
-
-
-        String result = command.execute();
-        System.out.println(result);
+        for (int i = 0; i < 20; i++) {
+            new Thread(() -> {
+                HelloWorldHystrixCommand command = new HelloWorldHystrixCommand("xxx");
+                String result = command.execute();
+                System.out.println(result);
+            }).start();
+        }
     }
 }

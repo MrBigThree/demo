@@ -25,7 +25,6 @@ public class RedisDemo {
         RReadWriteLock readWriteLock = redisson.getReadWriteLock("test");
         readWriteLock.readLock().lock();
 
-
         redisson.shutdown();
     }
 
