@@ -12,11 +12,18 @@
     <artifactId>redission-demo</artifactId>
 
     <dependencies>
+<!--        -->
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson</artifactId>-->
+<!--            <version>3.8.2</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.8.2</version>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.14.0</version>
         </dependency>
+
     </dependencies>
 </project>

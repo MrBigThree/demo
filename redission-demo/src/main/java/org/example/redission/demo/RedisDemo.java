@@ -18,13 +18,10 @@ public class RedisDemo {
                 .setAddress("redis://20.21.1.118:6379");
         RedissonClient redisson = Redisson.create(config);
         RMap<Object, Object> map = redisson.getMap("test");
-        map.put("name","aaa");
-        map.put("age","123");
-
-        Thread.currentThread().interrupt();
+        map.put("name", "aaa");
+        map.put("age", "123");
         RReadWriteLock readWriteLock = redisson.getReadWriteLock("test");
         readWriteLock.readLock().lock();
-
         redisson.shutdown();
     }
 

@@ -9,6 +9,8 @@ import org.redisson.connection.balancer.RoundRobinLoadBalancer;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @description: //TODO
@@ -32,9 +34,12 @@ public class SentinelDemo {
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("");
         bloomFilter.contains("");
         System.out.println("test result is : " + test.get());
+
+
+
+        RBitSet bitSet = redissonClient.getBitSet("");
+        bitSet.set(10L,true);
         //当只有读请求的时候 （read only），可以使用负载均衡把请求发送到各个slave上面
         //当既有读请求又有写请求时，应该把读请求也发送到 master ，防止出现不一致的情况。
-
-
     }
 }
