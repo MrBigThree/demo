@@ -34,9 +34,6 @@ public class SentinelDemo {
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter("");
         bloomFilter.contains("");
         System.out.println("test result is : " + test.get());
-
-
-
         RBitSet bitSet = redissonClient.getBitSet("");
         bitSet.set(10L,true);
         //当只有读请求的时候 （read only），可以使用负载均衡把请求发送到各个slave上面
