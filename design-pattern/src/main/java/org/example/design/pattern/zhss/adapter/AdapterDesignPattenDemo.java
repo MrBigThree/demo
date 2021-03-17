@@ -1,5 +1,6 @@
 package org.example.design.pattern.zhss.adapter;
 
+
 /**
  * @description: //TODO
  * @author: lvxuhong
@@ -7,9 +8,40 @@ package org.example.design.pattern.zhss.adapter;
  */
 public class AdapterDesignPattenDemo {
 
+    public static void main(String[] args) {
+        NewInterface newInterfaceAdapter = new NewInterfaceAdapter(new OldInterfaceImpl());
+
+        newInterfaceAdapter.newRequest();
+    }
+
+}
+
+interface OldInterface {
+    void oldRequest();
+}
+
+class OldInterfaceImpl implements OldInterface {
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public void oldRequest() {
+        System.out.println("旧接口");
+    }
+}
+
+interface NewInterface {
+    void newRequest();
+}
+
+class NewInterfaceAdapter implements NewInterface {
+
+    private OldInterface oldInterface;
+
+    public NewInterfaceAdapter(OldInterface oldInterface) {
+        this.oldInterface = oldInterface;
+    }
+
+    @Override
+    public void newRequest() {
+        this.oldInterface.oldRequest();
     }
 }
