@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class SampleClass {
 
     public String doSomething() {
+
         System.out.println("hello world");
         return "hello world";
     }

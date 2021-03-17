@@ -2,6 +2,7 @@ package org.example.redission.demo.sentinel;
 
 import org.redisson.Redisson;
 import org.redisson.api.*;
+import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;
 import org.redisson.config.ReadMode;
 import org.redisson.config.SentinelServersConfig;

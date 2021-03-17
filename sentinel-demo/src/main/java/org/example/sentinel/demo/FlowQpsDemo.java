@@ -33,7 +33,7 @@ public class FlowQpsDemo {
 
     private static int seconds = 60 + 40;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         initFlowQpsRule();
 
         tick();
@@ -49,6 +49,7 @@ public class FlowQpsDemo {
         List<FlowRule> rules = new ArrayList<FlowRule>();
         FlowRule rule1 = new FlowRule();
         rule1.setResource(KEY);
+        rule1.setClusterMode(true);
         // set limit qps to 20
         rule1.setCount(20);
         rule1.setGrade(RuleConstant.FLOW_GRADE_QPS);

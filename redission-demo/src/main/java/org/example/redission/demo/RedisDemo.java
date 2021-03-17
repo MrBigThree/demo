@@ -5,6 +5,8 @@ import org.redisson.api.*;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @description:
  * @author:lvxuhong
@@ -12,7 +14,7 @@ import org.redisson.config.Config;
  */
 public class RedisDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Config config = new Config();
         config.useSingleServer()
                 .setAddress("redis://20.21.1.118:6379");
@@ -20,9 +22,15 @@ public class RedisDemo {
         RMap<Object, Object> map = redisson.getMap("test");
         map.put("name", "aaa");
         map.put("age", "123");
-        RReadWriteLock readWriteLock = redisson.getReadWriteLock("test");
-        readWriteLock.readLock().lock();
+        RLock lock = redisson.getLock("test");
+
+        lock.tryLock(500,10000, TimeUnit.MILLISECONDS);
+
+        lock.lock();
+        System.out.println("test");
+        lock.unlock();
         redisson.shutdown();
+
     }
 
 }
