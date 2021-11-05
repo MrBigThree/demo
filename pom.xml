@@ -31,6 +31,8 @@
         <module>sharding-jdbc-demo</module>
         <module>nacos-demo</module>
         <module>sentinel-demo</module>
+        <module>jdk-demo</module>
+        <module>httpasync</module>
     </modules>
 
     <properties>
