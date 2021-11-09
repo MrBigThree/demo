@@ -15,13 +15,14 @@ public class LinedListDemo {
         LinkedList<String> linkedList = new LinkedList<>();
 
         //Node 双向链表 pre next
-
         linkedList.add("string");
         linkedList.add("string2");
         linkedList.addFirst("");
         linkedList.add(2,"");
         linkedList.getFirst();
         linkedList.peek();
+
+        linkedList.addFirst("");
 
 
     }
