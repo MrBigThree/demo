@@ -13,6 +13,10 @@ import java.util.TreeMap;
 public class HashMapDemo {
 
     public static void main(String[] args) {
+
+
+
+
         HashMap<Integer, String> hashMap = new HashMap<>(64);
         for (int i = 0; i < 100; i++) {
             hashMap.put(64 * i, "12");
