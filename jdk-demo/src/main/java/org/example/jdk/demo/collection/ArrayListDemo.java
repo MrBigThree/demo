@@ -20,7 +20,7 @@ public class ArrayListDemo {
          Iterator<String> iterator = list.iterator();
 
          while (iterator.hasNext()){
-             iterator.next()
+             iterator.next();
          }
     }
 }

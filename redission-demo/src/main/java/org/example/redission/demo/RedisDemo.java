@@ -24,13 +24,12 @@ public class RedisDemo {
         map.put("age", "123");
         RLock lock = redisson.getLock("test");
 
-        lock.tryLock(500,10000, TimeUnit.MILLISECONDS);
+        lock.tryLock(500, 10000, TimeUnit.MILLISECONDS);
 
         lock.lock();
         System.out.println("test");
         lock.unlock();
         redisson.shutdown();
-
     }
 
 }
