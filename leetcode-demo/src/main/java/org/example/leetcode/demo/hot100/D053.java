@@ -12,12 +12,28 @@ public class D053 {
         System.out.println(i);
     }
 
+    /**
+     * f(i) 表示长度从0到i的数组的最大子序列和，
+     *
+     * @param nums
+     * @return
+     */
     public int maxSubArray(int[] nums) {
-        int pre = 0, maxAns = nums[0];
-        for (int x : nums) {
-            pre = Math.max(pre + x, x);
-            maxAns = Math.max(maxAns, pre);
+        //表示以第i个数字结尾的最大子序列和，
+        //如果dp[i - 1] > 0,那么dp[i]就是dp[i - 1] + nums[i]
+        //如果dp[i - 1] < 0,那么dp[i]就是nums[i]
+        int result = nums[0];
+        int pre = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int current;
+            if (pre < 0) {
+                current = nums[i];
+            } else {
+                current = pre + nums[i];
+            }
+            pre = current;
+            result = Math.max(result, current);
         }
-        return maxAns;
+        return result;
     }
 }
