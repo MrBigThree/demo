@@ -1,7 +1,12 @@
 package org.example.leetcode.demo.hot100;
 
 /**
- * @description: //TODO
+ * @description: //
+ * 说明，f(i)以第i个数字结尾的最大子序列和
+ * 那么,如果f(i-1) > 0,那么，f(i) = f(i-1) + nums[i],
+ * 否则，f(i) = nums[i]
+ *
+ *
  * @author: lvxuhong
  * @date: 2021/11/18
  */
@@ -19,7 +24,7 @@ public class D053 {
      * @return
      */
     public int maxSubArray(int[] nums) {
-        //表示以第i个数字结尾的最大子序列和，
+        //dp[i]表示以第i个数字结尾的最大子序列和，
         //如果dp[i - 1] > 0,那么dp[i]就是dp[i - 1] + nums[i]
         //如果dp[i - 1] < 0,那么dp[i]就是nums[i]
         int result = nums[0];
