@@ -11,16 +11,18 @@ import java.util.Iterator;
 public class ArrayListDemo {
 
     public static void main(String[] args) {
+
+
         ArrayList<String> list = new ArrayList<>();
 
         list.add("");
         list.add("");
 
 
-         Iterator<String> iterator = list.iterator();
+        Iterator<String> iterator = list.iterator();
 
-         while (iterator.hasNext()){
-             iterator.next();
-         }
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
     }
 }
