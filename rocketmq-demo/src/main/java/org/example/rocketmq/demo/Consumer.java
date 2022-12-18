@@ -1,9 +1,11 @@
 package org.example.rocketmq.demo;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
-import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.message.MessageExt;
+
+import java.util.List;
 
 /**
  * @description:
@@ -15,21 +17,29 @@ public class Consumer {
     public static void main(String[] args) throws InterruptedException, MQClientException {
 
         // 实例化消费者
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_test_group");
 
         // 设置NameServer的地址
-        consumer.setNamesrvAddr("20.21.1.1118:9876");
+        consumer.setNamesrvAddr("20.21.1.118:9876");
 
         // 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息
-        consumer.subscribe("TopicTest", "*");
+        consumer.subscribe("canal_visitor", "*");
 
         // 注册回调实现类来处理从broker拉取回来的消息
+        consumer.registerMessageListener(new MessageListenerOrderly() {
 
-        consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
-            System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
-            // 标记该消息已经被成功消费
-            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            @Override
+            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
+
+                msgs.forEach(messageExt -> {
+                    byte[] body = messageExt.getBody();
+                    String s = new String(body);
+                    System.out.println("接收到消息" + s);
+                });
+                return ConsumeOrderlyStatus.SUCCESS;
+            }
         });
+
 
         // 启动消费者实例
         consumer.start();

@@ -1,6 +1,7 @@
 package org.example.redission.demo;
 
 import org.redisson.Redisson;
+import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
@@ -18,15 +19,16 @@ public class FairLockDemo {
     public static void main(String[] args) throws Exception {
         Config config = new Config();
         config.useSingleServer()
-                .setAddress("redis://20.21.1.118:6379");
+                .setAddress("redis://121.40.121.214:6379")
+                .setPassword("pds2019");
         RedissonClient redisson = Redisson.create(config);
-        RLock fairLock = redisson.getFairLock("fairLockName");
 
-        fairLock.lock();
+        RLock lock = redisson.getLock("123");
+        lock.lock();
 
-        fairLock.unlock();
 
-        redisson.shutdown();
+        RBucket<Object> bucket = redisson.getBucket("");
+
 
     }
 }

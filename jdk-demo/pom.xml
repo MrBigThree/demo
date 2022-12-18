@@ -11,5 +11,20 @@
 
     <artifactId>jdk-demo</artifactId>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-core -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>11.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.22</version>
+        </dependency>
 
+
+    </dependencies>
 </project>
